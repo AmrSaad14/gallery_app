@@ -10,6 +10,7 @@ import 'package:gallery/view_model/cubit/search_cubit/search_cubit.dart';
 import 'package:gallery/view_model/cubit/splash_cubit/splash_cubit.dart';
 import 'package:gallery/view_model/navigator/navigator.dart';
 import 'package:gallery/view_model/navigator/routes.dart';
+import 'package:gallery/constants/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,20 +43,11 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Wallpaper',
+        title: 'Wallpapers Gallery',
         onGenerateRoute: CustomNavigator.onGenerateRoute,
         initialRoute: Routes.splash,
         navigatorKey: CustomNavigator.navigatorState,
-        theme: ThemeData(
-          scaffoldBackgroundColor: Colors.white,
-          appBarTheme: AppBarTheme(
-              backgroundColor: black,
-              actionsIconTheme: const IconThemeData(color: Colors.white),
-              iconTheme: const IconThemeData(color: Colors.white)),
-          brightness: Brightness.light,
-          primaryColor: black,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
+        theme: AppTheme.theme,
       ),
     );
   }
