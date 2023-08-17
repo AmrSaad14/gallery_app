@@ -14,3 +14,5 @@ class HomeLoaded extends HomeState {
 }
 
 class HomeError extends HomeState {}
+
+class ChangeCurrentIndexSuccessState extends HomeState{}

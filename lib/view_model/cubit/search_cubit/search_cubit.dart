@@ -24,4 +24,8 @@ class SearchCubit extends Cubit<SearchState> {
       emit(SearchError());
     }
   }
+  @override
+  Future<void> close() {
+    return super.close();
+  }
 }

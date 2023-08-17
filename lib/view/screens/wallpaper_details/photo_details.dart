@@ -30,19 +30,14 @@ class _PhotoDetailsState extends State<PhotoDetails> {
   ReceivePort _receivePort = ReceivePort();
 
   static callBack(id, status, progress) {
-    //Looking up for a send port from the isolate
     SendPort? sendPort = IsolateNameServer.lookupPortByName("downloading");
-
-    //If the send port is not null, we can send data to the isolate
     if (sendPort != null) {
-      //Sending the data to the isolate
       sendPort.send([id, status, progress]);
     }
   }
 
   @override
   void initState() {
-    //Registering the receive port with the isolate
     _receivePort.listen((message) {
       setState(() {
         progress = message[2];

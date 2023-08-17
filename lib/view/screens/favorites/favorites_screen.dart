@@ -1,53 +1,63 @@
 import 'package:flutter/material.dart';
-
-import '../../../view_model/helpers/shared_helper.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gallery/model/models/base_models/photos.dart';
+import 'package:gallery/view_model/cubit/favourites_cubit/favourites_cubit.dart';
+import 'package:gallery/view_model/cubit/home_cubit/home_cubit.dart';
 import '../../widgets/photo_item.dart';
 
-class FavoritesScreen extends StatefulWidget {
-  const FavoritesScreen({Key? key}) : super(key: key);
+class FavoritesScreen extends StatelessWidget {
 
-  @override
-  State<FavoritesScreen> createState() => _FavoritesScreenState();
-}
-
-class _FavoritesScreenState extends State<FavoritesScreen> {
-  List<String> photos = [];
-  @override
-  void initState() {
-    SharedHelper().readFavorites(CachingKey.favorite).then((value) {
-      setState(() {
-        photos.addAll(value);
-      });
-    });
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    photos.clear();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-      ),
-      body: GridView.builder(
-        shrinkWrap: true,
-        itemCount: photos.length,
-        padding: const EdgeInsets.all(15),
-        itemBuilder: (context, index) => PhotoItem(
-          url: photos[index],
+    FavouritesCubit cubit = FavouritesCubit();
+    return BlocProvider(
+      create: (context) => FavouritesCubit(),
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
         ),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 2 / 3,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
+        body: BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            return BlocConsumer<HomeCubit, HomeState>(
+              listener: (context, state) {
+
+              },
+              builder: (context, state) {
+                return BlocConsumer<FavouritesCubit, FavouritesState>(
+                  listener: (context, state) {
+                    if(state is FavouritesCubit){
+                      print('FavouritesCubit');
+                    }else {
+                      print('error');
+                    }
+                  },
+                  builder: (context, state) {
+                    return GridView.builder(
+                      shrinkWrap: true,
+                      itemCount: cubit.photos.length,
+                      padding: const EdgeInsets.all(15),
+                      itemBuilder: (context, index) =>
+                          PhotoItem(
+                            url: cubit.photos[index],
+                          ),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 2 / 3,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                      ),
+                    );
+                  },
+                );
+              },
+            );
+          },
         ),
       ),
     );
   }
+
 }
+
+

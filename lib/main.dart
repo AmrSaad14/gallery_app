@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:gallery/constants/colors.dart';
 import 'package:gallery/view_model/cubit/download_cubit/download_cubit.dart';
+import 'package:gallery/view_model/cubit/favourites_cubit/favourites_cubit.dart';
 import 'package:gallery/view_model/cubit/home_cubit/home_cubit.dart';
 import 'package:gallery/view_model/cubit/photo_details_cubit/photodetails_cubit.dart';
 import 'package:gallery/view_model/cubit/search_cubit/search_cubit.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
             create: (context) => PhotodetailsCubit()),
         BlocProvider<SearchCubit>(create: (context) => SearchCubit()),
         BlocProvider<DownloadCubit>(create: (context) => DownloadCubit()),
+        BlocProvider<FavouritesCubit>(create: (context)=>FavouritesCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gallery/view_model/cubit/home_cubit/home_cubit.dart';
 import 'package:gallery/view_model/navigator/routes.dart';
 import '../../view/screens/home/home_screen.dart';
 import '../../view/screens/search/search_screen.dart';
@@ -14,14 +15,15 @@ abstract class CustomNavigator {
           builder: (context) => const SplashScreen(),
         );
       case Routes.home:
+        homeCubit.changeCurrentIndex(0);
         return MaterialPageRoute(
           builder: (context) => const HomeScreen(
-            index: 0,
+
           ),
         );
       case Routes.search:
         return MaterialPageRoute(
-          builder: (context) => const SearchScreen(),
+          builder: (context) =>  SearchScreen(),
         );
     }
     return MaterialPageRoute(builder: (_) => Container());

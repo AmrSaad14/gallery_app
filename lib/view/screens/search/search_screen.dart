@@ -7,16 +7,12 @@ import '../../../model/models/base_models/photos.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/photo_item.dart';
 
-class SearchScreen extends StatefulWidget {
-  const SearchScreen({Key? key}) : super(key: key);
+class SearchScreen extends StatelessWidget {
 
-  @override
-  State<SearchScreen> createState() => _SearchScreenState();
-}
-
-class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
+
   late List<Photo> photos;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,6 +130,5 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void dispose() {
     photos.clear();
-    super.dispose();
   }
 }
