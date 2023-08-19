@@ -12,11 +12,6 @@ class FavoritesScreen extends StatelessWidget {
         create: (context) => FavouritesCubit()..favourites(),
         child: BlocConsumer<FavouritesCubit, FavouritesState>(
           listener: (context, state) {
-            if (state is FavouritesCubit) {
-              print('FavouritesCubit');
-            } else {
-              print('error');
-            }
           },
           builder: (context, state) {
             var cubit = FavouritesCubit.get(context);
