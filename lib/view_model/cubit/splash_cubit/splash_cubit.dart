@@ -16,7 +16,7 @@ class SplashCubit extends Cubit<SplashState> {
 
     Future.delayed(const Duration(seconds: 3), () {
       emit(SplashLoaded());
-      CustomNavigator.push(Routes.home, clean: true);
+      CustomNavigator.push(Routes.register);
     });
   }
 }

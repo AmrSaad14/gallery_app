@@ -12,6 +12,9 @@ dependencies:
   bloc: ^8.0.3
   cupertino_icons: ^1.0.2
   dio: ^4.0.6
+  firebase_core: ^2.15.1
+  firebase_auth: ^4.7.3
+  quickalert: ^1.0.1
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1

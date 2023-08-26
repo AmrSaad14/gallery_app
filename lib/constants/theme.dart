@@ -6,8 +6,10 @@ class AppTheme{
   scaffoldBackgroundColor: Colors.white,
   appBarTheme: AppBarTheme(
   backgroundColor: black,
+
   actionsIconTheme: const IconThemeData(color: Colors.white),
   iconTheme: const IconThemeData(color: Colors.white)),
+
   brightness: Brightness.light,
   primaryColor: black,
   visualDensity: VisualDensity.adaptivePlatformDensity,

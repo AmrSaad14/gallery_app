@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gallery/view/login/login_view.dart';
 import 'package:gallery/view_model/cubit/home_cubit/home_cubit.dart';
 import 'package:gallery/view_model/navigator/routes.dart';
+import '../../view/register/register_view.dart';
 import '../../view/screens/home/home_screen.dart';
 import '../../view/screens/search/search_screen.dart';
 import '../../view/screens/splash/splash_screen.dart';
@@ -10,9 +12,15 @@ abstract class CustomNavigator {
       GlobalKey<NavigatorState>();
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case Routes.register:
+        return MaterialPageRoute(builder: (context)=>const RegisterScreen());
       case Routes.splash:
         return MaterialPageRoute(
           builder: (context) => const SplashScreen(),
+        );
+      case Routes.login:
+        return MaterialPageRoute(
+          builder: (context) => const LoginView(),
         );
       case Routes.home:
         homeCubit.changeCurrentIndex(0);
@@ -25,6 +33,7 @@ abstract class CustomNavigator {
         return MaterialPageRoute(
           builder: (context) =>  SearchScreen(),
         );
+
     }
     return MaterialPageRoute(builder: (_) => Container());
   }
@@ -34,7 +43,6 @@ abstract class CustomNavigator {
       navigatorState.currentState!.pop(result);
     }
   }
-
   static push(String routeName,
       {arguments, bool replace = false, bool clean = false}) {
     if (clean) {
