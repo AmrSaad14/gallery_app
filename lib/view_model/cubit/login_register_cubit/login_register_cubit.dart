@@ -36,7 +36,7 @@ class LoginRegisterCubit extends Cubit<LoginRegisterState> {
           email: email,
           password: password
       );
-    CustomNavigator.push(Routes.home);
+    CustomNavigator.push(Routes.home,replace: true,);
     ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
             content: Text('Registered Successfully')));
@@ -76,7 +76,7 @@ class LoginRegisterCubit extends Cubit<LoginRegisterState> {
         email: email,
         password: password,
       );
-      CustomNavigator.push(Routes.home);
+      CustomNavigator.push(Routes.home,replace: true);
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
               content: Text('login Successfully')));

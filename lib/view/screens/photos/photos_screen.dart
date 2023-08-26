@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallery/model/models/base_models/photos.dart';
@@ -35,7 +36,11 @@ class _PhotosScreenState extends State<PhotosScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+        appBar: AppBar(leading: IconButton(onPressed: ()async {
+         await FirebaseAuth.instance.signOut();
+         CustomNavigator.push(Routes.login,replace: true);
+        },
+            icon: const Icon(Icons.logout_outlined)),
           title: const Text('Home'),
           centerTitle: true,
           actions: [

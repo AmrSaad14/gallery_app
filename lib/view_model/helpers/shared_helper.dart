@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,8 +13,8 @@ abstract class Enum<T> {
 // caching key class for shared preferences keys it extends enum with string type to initialize key with string
 class CachingKey extends Enum<String> {
   const CachingKey(String val) : super(val);
-  static const CachingKey download = const CachingKey('download');
-  static const CachingKey favorite = const CachingKey('favorite');
+  static const CachingKey download = CachingKey('download');
+  static const CachingKey favorite = CachingKey('favorite');
 }
 
 class SharedHelper {
@@ -43,7 +41,7 @@ class SharedHelper {
   readFavorites(CachingKey key) async {
     _shared = await SharedPreferences.getInstance();
     List<String> values = _shared.getStringList(key.value) ?? [];
-    print("Reading >>> ${values} local >>> with key ${key.value}");
+    print("Reading >>> $values local >>> with key ${key.value}");
     return values;
   }
 }

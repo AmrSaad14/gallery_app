@@ -49,7 +49,8 @@ abstract class CustomNavigator {
       return navigatorState.currentState!.pushNamedAndRemoveUntil(
           routeName, (_) => false,
           arguments: arguments);
-    } else if (replace) {
+    } else if (replace)
+    {
       return navigatorState.currentState!
           .pushReplacementNamed(routeName, arguments: arguments);
     } else {
