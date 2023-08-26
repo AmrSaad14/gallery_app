@@ -1,8 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallery/view_model/cubit/login_register_cubit/login_register_cubit.dart';
-
 import '../../../view_model/navigator/navigator.dart';
 import '../../../view_model/navigator/routes.dart';
 import '../../register/widgets/customTextField.dart';
@@ -56,8 +54,8 @@ class LoginViewBody extends StatelessWidget {
                         cubit.changeVisibilityPassword();
                       },
                       icon: cubit.suffixPass
-                          ? const Icon(Icons.visibility_off)
-                          : const Icon(Icons.visibility)),
+                          ? const Icon(Icons.visibility)
+                          : const Icon(Icons.visibility_off)),
                   validate: (value) {
                     if (value!.isEmpty) {
                       return 'please enter your password';
@@ -68,7 +66,7 @@ class LoginViewBody extends StatelessWidget {
                   hintText: 'password',
                   prefix: Icons.password,
                   type: TextInputType.visiblePassword,
-                  obscureText: cubit.suffixPass,
+                  obscureText: !cubit.suffixPass,
                 ),
                 const SizedBox(
                   height: 20,
@@ -84,11 +82,7 @@ class LoginViewBody extends StatelessWidget {
                     onPressed: () {
                       if (cubit.formKey.currentState!.validate())
                       {
-                    cubit.signInUser(cubit.emailController.text,
-                            cubit.passController.text,context);
-                       cubit.emailController.clear();
-                       cubit.passController.clear();
-
+                    signIn(cubit, context);
                       }
                     },
                     child: state is LoginLoading
@@ -121,5 +115,12 @@ class LoginViewBody extends StatelessWidget {
         );
       },
     );
+  }
+
+  void signIn(LoginRegisterCubit cubit, BuildContext context) {
+     cubit.signInUser(cubit.emailController.text,
+            cubit.passController.text,context);
+       cubit.emailController.clear();
+       cubit.passController.clear();
   }
 }

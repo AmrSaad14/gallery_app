@@ -74,12 +74,12 @@ class RegisterViewBody extends StatelessWidget {
                       hintText: 'password',
                       prefix: Icons.password,
                       type: TextInputType.visiblePassword,
-                      obscureText: cubit.suffixPass,
+                      obscureText: !cubit.suffixPass,
                       suffixIcon:IconButton(color: Colors.black,
                           onPressed: (){
                             cubit.changeVisibilityPassword();
                           },
-                          icon: cubit.suffixPass ?const Icon(Icons.visibility_off):const Icon(Icons.visibility)) ,
+                          icon: cubit.suffixPass ?const Icon(Icons.visibility):const Icon(Icons.visibility_off)) ,
                     ),
                     const SizedBox(
                       height: 10,
@@ -88,7 +88,7 @@ class RegisterViewBody extends StatelessWidget {
                         onPressed: (){
                           cubit.changeVisibilityConfirmPassword();
                         },
-                        icon: cubit.suffixConfirmPass ?const Icon(Icons.visibility_off):const Icon(Icons.visibility)),
+                        icon: cubit.suffixConfirmPass ?const Icon(Icons.visibility):const Icon(Icons.visibility_off)),
                       validate: (value) {
                         if (value!.isEmpty ) {
                           return 'please enter your password';
@@ -103,7 +103,7 @@ class RegisterViewBody extends StatelessWidget {
                       hintText: 'confirm password',
                       prefix: Icons.password,
                       type: TextInputType.visiblePassword,
-                      obscureText: cubit.suffixConfirmPass,
+                      obscureText: !cubit.suffixConfirmPass,
                     ),
                     const SizedBox(height: 20,),
                     ElevatedButton(
@@ -117,15 +117,9 @@ class RegisterViewBody extends StatelessWidget {
                         onPressed: () {
                           if(cubit.formKey.currentState!.validate())
                           {
-                            cubit.registerUser(cubit.emailController.text, cubit.passController.text,context);
-                            cubit.emailController.clear();
-                            cubit.passController.clear();
-                            cubit.nameController.clear();
-                            cubit.confirmPassController.clear();
+                            register(cubit, context);
 
                           }
-
-
 
                         },
                         child:state is RegisterLoading? const Center(child: SizedBox(height: 24,width: 24,
@@ -150,6 +144,14 @@ class RegisterViewBody extends StatelessWidget {
             },
           ),
         ));
+  }
+
+  void register(LoginRegisterCubit cubit, BuildContext context) {
+    cubit.registerUser(cubit.emailController.text, cubit.passController.text,context);
+    cubit.emailController.clear();
+    cubit.passController.clear();
+    cubit.nameController.clear();
+    cubit.confirmPassController.clear();
   }
 
 }
