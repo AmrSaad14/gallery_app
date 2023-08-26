@@ -1,6 +1,6 @@
 {
-    "name": "gallery_app",
-    "short_name": "gallery_app",
+    "name": "wallpaper",
+    "short_name": "wallpaper",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
