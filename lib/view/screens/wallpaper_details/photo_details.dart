@@ -101,42 +101,44 @@ class _PhotoDetailsState extends State<PhotoDetails> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        BlocBuilder<DownloadCubit, DownloadState>(
-                          builder: (context, state) {
-                            return Container(
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle, color: black),
-                              child: IconButton(
-                                icon: const Icon(Icons.download),
-                                color: white,
-                                onPressed: () {
-                                  DownloadCubit.get(context)
-                                      .download(widget.url);
-                                },
-                              ),
-                            );
-                          },
-                        ),
-                        BlocBuilder<PhotodetailsCubit, PhotodetailsState>(
-                          builder: (context, state) {
-                            return Container(
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle, color: black),
-                              child: IconButton(
-                                icon: const Icon(Icons.favorite),
-                                color: white,
-                                onPressed: () {
-                                  PhotodetailsCubit.get(context)
-                                      .addFavorite(url: widget.url);
-                                },
-                              ),
-                            );
-                          },
-                        ),
-                      ],
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          BlocBuilder<DownloadCubit, DownloadState>(
+                            builder: (context, state) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle, color: black),
+                                child: IconButton(
+                                  icon: const Icon(Icons.download),
+                                  color: white,
+                                  onPressed: () {
+                                    DownloadCubit.get(context)
+                                        .download(widget.url);
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                          BlocBuilder<PhotodetailsCubit, PhotodetailsState>(
+                            builder: (context, state) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle, color: black),
+                                child: IconButton(
+                                  icon: const Icon(Icons.favorite),
+                                  color: white,
+                                  onPressed: () {
+                                    PhotodetailsCubit.get(context)
+                                        .addFavorite(url: widget.url);
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
