@@ -45,7 +45,6 @@ class MyApp extends StatelessWidget {
             create: (context) => PhotodetailsCubit()),
         BlocProvider<SearchCubit>(create: (context) => SearchCubit()),
         BlocProvider<DownloadCubit>(create: (context) => DownloadCubit()),
-        BlocProvider<FavouritesCubit>(create: (context)=>FavouritesCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
