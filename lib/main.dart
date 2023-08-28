@@ -11,6 +11,7 @@ import 'package:gallery/view_model/cubit/login_register_cubit/login_register_cub
 import 'package:gallery/view_model/cubit/photo_details_cubit/photodetails_cubit.dart';
 import 'package:gallery/view_model/cubit/search_cubit/search_cubit.dart';
 import 'package:gallery/view_model/cubit/splash_cubit/splash_cubit.dart';
+import 'package:gallery/view_model/helpers/shared_helper.dart';
 import 'package:gallery/view_model/navigator/navigator.dart';
 import 'package:gallery/view_model/navigator/routes.dart';
 import 'package:gallery/constants/theme.dart';
@@ -18,6 +19,7 @@ import 'package:gallery/constants/theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await SharedHelper.init();
   await FlutterDownloader.initialize(
     debug: true, // set false to disable printing logs to console
   );

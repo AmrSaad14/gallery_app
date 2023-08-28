@@ -3,9 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallery/view/register/widgets/customTextField.dart';
 import 'package:gallery/view_model/cubit/login_register_cubit/login_register_cubit.dart';
 import 'package:gallery/view_model/navigator/navigator.dart';
-
 import '../../view_model/navigator/routes.dart';
-
 class RegisterViewBody extends StatelessWidget {
   const RegisterViewBody({Key? key}) : super(key: key);
   @override
@@ -147,7 +145,7 @@ class RegisterViewBody extends StatelessWidget {
   }
 
   void register(LoginRegisterCubit cubit, BuildContext context) {
-    cubit.registerUser(cubit.emailController.text, cubit.passController.text,context);
+   cubit.registerUser(cubit.emailController.text, cubit.passController.text,context);
     cubit.emailController.clear();
     cubit.passController.clear();
     cubit.nameController.clear();

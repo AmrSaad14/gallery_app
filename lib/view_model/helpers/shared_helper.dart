@@ -18,12 +18,26 @@ class CachingKey extends Enum<String> {
 }
 
 class SharedHelper {
-  late SharedPreferences _shared;
+
+    static SharedPreferences ?shared;
+  Future<bool> saveUid(String key,String value)async
+  {
+    return await shared!.setString(key, value);
+  }
+  static init()async
+  {
+    shared=await SharedPreferences.getInstance();
+  }
+    getUid(String key)
+  {
+  return shared!.getString(key) ;
+
+  }
 
 // this method will be used to save favorite photos to shared preferences in list of strings
   writeFavorites(CachingKey key, value) async {
-    _shared = await SharedPreferences.getInstance();
-    List<String> values = _shared.getStringList(key.value) ?? [];
+    shared = await SharedPreferences.getInstance();
+    List<String> values = shared?.getStringList(key.value) ?? [];
     if (!values.contains(value)) {
       values.add(value);
       print("Saving >>> $value local >>> with key ${key.value}");
@@ -34,13 +48,13 @@ class SharedHelper {
       Fluttertoast.showToast(msg: 'Removed from favorites');
     }
 
-    _shared.setStringList(key.value, values);
+    shared!.setStringList(key.value, values);
   }
 
   // this method will be used to get favorite photos from shared preferences in list of strings
   readFavorites(CachingKey key) async {
-    _shared = await SharedPreferences.getInstance();
-    List<String> values = _shared.getStringList(key.value) ?? [];
+    shared = await SharedPreferences.getInstance();
+    List<String> values = shared?.getStringList(key.value) ?? [];
     print("Reading >>> $values local >>> with key ${key.value}");
     return values;
   }

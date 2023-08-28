@@ -11,7 +11,8 @@ abstract class CustomNavigator {
   static final GlobalKey<NavigatorState> navigatorState =
       GlobalKey<NavigatorState>();
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
-    switch (settings.name) {
+    switch (settings.name)
+    {
       case Routes.register:
         return MaterialPageRoute(builder: (context)=>const RegisterScreen());
       case Routes.splash:
