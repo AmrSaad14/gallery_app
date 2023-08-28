@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gallery/view_model/helpers/shared_helper.dart';
 import 'package:meta/meta.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
@@ -18,6 +19,7 @@ class LoginRegisterCubit extends Cubit<LoginRegisterState> {
    TextEditingController nameController=TextEditingController() ;
    TextEditingController confirmPassController=TextEditingController() ;
   var formKey = GlobalKey<FormState>();
+  SharedHelper helper=SharedHelper();
   changeVisibilityConfirmPassword()
   {
     suffixConfirmPass=!suffixConfirmPass;
@@ -32,10 +34,11 @@ class LoginRegisterCubit extends Cubit<LoginRegisterState> {
   {
     emit(RegisterLoading());
     try {
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+   UserCredential user= await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: password
       );
+    await helper.saveUid('uId', user.user!.uid);
     CustomNavigator.push(Routes.home,replace: true,);
     ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

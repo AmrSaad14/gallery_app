@@ -7,7 +7,6 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:gallery/constants/colors.dart';
 import 'package:gallery/view_model/cubit/download_cubit/download_cubit.dart';
 import 'package:gallery/view_model/cubit/photo_details_cubit/photodetails_cubit.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class PhotoDetails extends StatefulWidget {
   final String url;
@@ -101,42 +100,45 @@ class _PhotoDetailsState extends State<PhotoDetails> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        BlocBuilder<DownloadCubit, DownloadState>(
-                          builder: (context, state) {
-                            return Container(
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle, color: black),
-                              child: IconButton(
-                                icon: const Icon(Icons.download),
-                                color: white,
-                                onPressed: () {
-                                  DownloadCubit.get(context)
-                                      .download(widget.url);
-                                },
-                              ),
-                            );
-                          },
-                        ),
-                        BlocBuilder<PhotodetailsCubit, PhotodetailsState>(
-                          builder: (context, state) {
-                            return Container(
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle, color: black),
-                              child: IconButton(
-                                icon: const Icon(Icons.favorite),
-                                color: white,
-                                onPressed: () {
-                                  PhotodetailsCubit.get(context)
-                                      .addFavorite(url: widget.url);
-                                },
-                              ),
-                            );
-                          },
-                        ),
-                      ],
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          BlocBuilder<DownloadCubit, DownloadState>(
+                            builder: (context, state) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle, color: black),
+                                child: IconButton(
+                                  icon: const Icon(Icons.download),
+                                  color: white,
+                                  onPressed: () {
+                                    DownloadCubit.get(context)
+                                        .download(widget.url);
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                          BlocBuilder<PhotodetailsCubit, PhotodetailsState>(
+                            builder: (context, state) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle, color: black),
+                                child: IconButton(
+                                  icon: const Icon(Icons.favorite,),
+                                  color: white,
+                                  onPressed: () {
+                                    PhotodetailsCubit.get(context)
+                                        .addFavorite(url: widget.url);
+                                  },
+                                ),
+                              );
+
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
