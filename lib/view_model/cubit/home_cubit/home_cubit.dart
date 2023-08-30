@@ -19,8 +19,7 @@ class HomeCubit extends Cubit<HomeState> {
   static HomeCubit get(context) => BlocProvider.of<HomeCubit>(context);
 
 // Get all photos cubit method to get all photos from the repository
-  void getPhotos({
-    int? page,
+  void getPhotos({    int? page,
     int? perPage,
   }) async {
     emit(HomeLoading());
