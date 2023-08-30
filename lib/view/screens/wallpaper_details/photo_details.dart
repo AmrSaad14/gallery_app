@@ -9,7 +9,7 @@ import 'package:gallery/view_model/cubit/download_cubit/download_cubit.dart';
 import 'package:gallery/view_model/cubit/photo_details_cubit/photodetails_cubit.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-class PhotoDetails extends StatefulWidget {
+class PhotoDetails extends StatelessWidget {
   final String url;
   final String author;
   final String description;
@@ -21,47 +21,17 @@ class PhotoDetails extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<PhotoDetails> createState() => _PhotoDetailsState();
-}
-
-class _PhotoDetailsState extends State<PhotoDetails> {
-  int progress = 0;
-
-  ReceivePort _receivePort = ReceivePort();
-
-  static callBack(id, status, progress) {
-    SendPort? sendPort = IsolateNameServer.lookupPortByName("downloading");
-    if (sendPort != null) {
-      sendPort.send([id, status, progress]);
-    }
-  }
-
-  @override
-  void initState() {
-    _receivePort.listen((message) {
-      setState(() {
-        progress = message[2];
-      });
-
-      print(progress);
-    });
-    IsolateNameServer.registerPortWithName(
-        _receivePort.sendPort, "downloading");
-
-    FlutterDownloader.registerCallback(callBack);
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BlocProvider(
+  create: (context) => PhotodetailsCubit()..details(),
+  child: Scaffold(
       appBar: AppBar(
         elevation: 0,
       ),
       body: Stack(
         children: [
           Image.network(
-            widget.url,
+            url,
             fit: BoxFit.fill,
           ),
           Align(
@@ -83,7 +53,7 @@ class _PhotoDetailsState extends State<PhotoDetails> {
                   children: [
                     const SizedBox(height: 20),
                     Text(
-                      'Photo By: ${widget.author}',
+                      'Photo By: $author',
                       style: TextStyle(
                         fontSize: 20,
                         color: black,
@@ -92,7 +62,7 @@ class _PhotoDetailsState extends State<PhotoDetails> {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      widget.description,
+                      description,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -115,7 +85,7 @@ class _PhotoDetailsState extends State<PhotoDetails> {
                                   color: white,
                                   onPressed: () {
                                     DownloadCubit.get(context)
-                                        .download(widget.url);
+                                        .download(url);
                                   },
                                 ),
                               );
@@ -131,7 +101,7 @@ class _PhotoDetailsState extends State<PhotoDetails> {
                                   color: white,
                                   onPressed: () {
                                     PhotodetailsCubit.get(context)
-                                        .addFavorite(url: widget.url);
+                                        .addFavorite(url: url);
                                   },
                                 ),
                               );
@@ -147,6 +117,7 @@ class _PhotoDetailsState extends State<PhotoDetails> {
           ),
         ],
       ),
-    );
+    ),
+);
   }
 }
